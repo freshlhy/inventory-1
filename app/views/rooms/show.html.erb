@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Site:</b>
+  <%= link_to @room.site.name, @site %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @room.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @room.description %>
+</p>
+
+<p>
+  <b>Latitude:</b>
+  <%= @room.latitude %>
+</p>
+
+<p>
+  <b>Longitude:</b>
+  <%= @room.longitude %>
+</p>
+
+
+<%= link_to 'Edit', edit_site_room_path(@site, @room) %> |
+<%= link_to 'Back', site_rooms_path(@site) %>

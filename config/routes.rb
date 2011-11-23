@@ -2,7 +2,7 @@ Inventory::Application.routes.draw do
 
   resources :scans
 
-  resources :assets
+  resources :items
 
   resources :manufacturers do 
     resources :models

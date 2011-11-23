@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Acquisition date:</b>
+  <%= @item.acquisition_date %>
+</p>
+
+<p>
+  <b>Tag:</b>
+  <%= @item.tag %>
+</p>
+
+<p>
+  <b>Tagged:</b>
+  <%= @item.tagged %>
+</p>
+
+<p>
+  <b>Serial:</b>
+  <%= @item.serial %>
+</p>
+
+<p>
+  <b>Model:</b>
+  <%= @item.model %>
+</p>
+
+
+<%= link_to 'Edit', edit_item_path(@item) %> |
+<%= link_to 'Back', items_path %>

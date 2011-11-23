@@ -2,7 +2,7 @@
 
 <table>
   <tr>
-    <th>Asset</th>
+    <th>Item</th>
     <th>Room</th>
     <th>Note</th>
     <th></th>
@@ -12,7 +12,7 @@
 
 <% @scans.each do |scan| %>
   <tr>
-    <td><%= scan.asset %></td>
+    <td><%= scan.item %></td>
     <td><%= scan.room %></td>
     <td><%= scan.note %></td>
     <td><%= link_to 'Show', scan %></td>

@@ -1,14 +1,14 @@
-class CreateAssets < ActiveRecord::Migration
+class CreateItems < ActiveRecord::Migration
   def change
-    create_table :assets do |t|
+    create_table :items do |t|
       t.date :acquisition_date
       t.string :tag
-      t.date :tag_date
+      t.date :tagged
       t.string :serial
       t.references :model
 
       t.timestamps
     end
-    add_index :assets, :model_id
+    add_index :items, :model_id
   end
 end

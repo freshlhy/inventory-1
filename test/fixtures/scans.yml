@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  asset: 
+  item: 
   room: 
   note: MyText
 
 two:
-  asset: 
+  item: 
   room: 
   note: MyText

@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Asset:</b>
+  <%= @scan.asset %>
+</p>
+
+<p>
+  <b>Room:</b>
+  <%= @scan.room %>
+</p>
+
+<p>
+  <b>Note:</b>
+  <%= @scan.note %>
+</p>
+
+
+<%= link_to 'Edit', edit_scan_path(@scan) %> |
+<%= link_to 'Back', scans_path %>

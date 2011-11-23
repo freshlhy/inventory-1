@@ -1,0 +1,27 @@
+<h1>Listing scans</h1>
+
+<table>
+  <tr>
+    <th>Asset</th>
+    <th>Room</th>
+    <th>Note</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @scans.each do |scan| %>
+  <tr>
+    <td><%= scan.asset %></td>
+    <td><%= scan.room %></td>
+    <td><%= scan.note %></td>
+    <td><%= link_to 'Show', scan %></td>
+    <td><%= link_to 'Edit', edit_scan_path(scan) %></td>
+    <td><%= link_to 'Destroy', scan, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Scan', new_scan_path %>

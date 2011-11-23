@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  acquisition_date: 2011-11-23
+  tag: MyString
+  tag_date: 2011-11-23
+  serial: MyString
+  model: 
+
+two:
+  acquisition_date: 2011-11-23
+  tag: MyString
+  tag_date: 2011-11-23
+  serial: MyString
+  model: 

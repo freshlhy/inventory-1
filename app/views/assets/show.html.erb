@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Acquisition date:</b>
+  <%= @asset.acquisition_date %>
+</p>
+
+<p>
+  <b>Tag:</b>
+  <%= @asset.tag %>
+</p>
+
+<p>
+  <b>Tag date:</b>
+  <%= @asset.tag_date %>
+</p>
+
+<p>
+  <b>Serial:</b>
+  <%= @asset.serial %>
+</p>
+
+<p>
+  <b>Model:</b>
+  <%= @asset.model %>
+</p>
+
+
+<%= link_to 'Edit', edit_asset_path(@asset) %> |
+<%= link_to 'Back', assets_path %>

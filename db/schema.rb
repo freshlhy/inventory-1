@@ -11,7 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111123204821) do
+ActiveRecord::Schema.define(:version => 20111123220344) do
+
+  create_table "items", :force => true do |t|
+    t.date     "acquisition_date"
+    t.string   "tag"
+    t.date     "tagged"
+    t.string   "serial"
+    t.integer  "model_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "items", ["model_id"], :name => "index_items_on_model_id"
 
   create_table "manufacturers", :force => true do |t|
     t.string   "name"
@@ -40,6 +52,17 @@ ActiveRecord::Schema.define(:version => 20111123204821) do
   end
 
   add_index "rooms", ["site_id"], :name => "index_rooms_on_site_id"
+
+  create_table "scans", :force => true do |t|
+    t.integer  "item_id"
+    t.integer  "room_id"
+    t.text     "note"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "scans", ["item_id"], :name => "index_scans_on_item_id"
+  add_index "scans", ["room_id"], :name => "index_scans_on_room_id"
 
   create_table "sites", :force => true do |t|
     t.string   "name"

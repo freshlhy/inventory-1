@@ -7,7 +7,9 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+<%= link_to 'Items', items_path %> |
+<%= link_to 'Sites', sites_path %> |
+<%= link_to 'Manufacturers', manufacturers_path %>
 <%= yield %>
 
 </body>

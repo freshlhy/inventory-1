@@ -5,6 +5,6 @@
   <%= @manufacturer.name %>
 </p>
 
-
+<%= link_to 'Models', manufacturer_models_path(@manufacturer) %> |
 <%= link_to 'Edit', edit_manufacturer_path(@manufacturer) %> |
 <%= link_to 'Back', manufacturers_path %>

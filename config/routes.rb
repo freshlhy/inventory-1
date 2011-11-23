@@ -1,8 +1,8 @@
 Inventory::Application.routes.draw do
 
-  resources :scans
-
-  resources :items
+  resources :items do
+    resources :scans
+  end
 
   resources :manufacturers do 
     resources :models

@@ -28,8 +28,7 @@
     <%= f.text_field :serial %>
   </div>
   <div class="field">
-    <%= f.label :model %><br />
-    <%= f.text_field :model %>
+    <%= f.grouped_collection_select :model_id, Manufacturer.order(:name), :models, :name, :id, :full_name, include_blank: true %>
   </div>
   <div class="actions">
     <%= f.submit %>

@@ -2,8 +2,9 @@
 
 <table>
   <tr>
+    <th>ID</th>
+    <th>Category</th>
     <th>Name</th>
-    <th>Identifier</th>
     <th></th>
     <th></th>
     <th></th>
@@ -11,8 +12,9 @@
 
 <% @models.each do |m| %>
   <tr>
-    <td><%= m.name %></td>
-      <td><%= m.identifier %></td>
+    <td><%= m.id %></td>
+    <td><%= m.category.name if m.category %></td>
+    <td><%= m.full_name %></td>
     <td><%= link_to 'Show', manufacturer_model_path(@manufacturer, m) %></td>
     <td><%= link_to 'Edit', edit_manufacturer_model_path(@manufacturer, m) %></td>
     <td><%= link_to 'Destroy', [@manufacturer, m], confirm: 'Are you sure?', method: :delete %></td>

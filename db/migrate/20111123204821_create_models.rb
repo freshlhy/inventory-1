@@ -2,8 +2,10 @@ class CreateModels < ActiveRecord::Migration
   def change
     create_table :models do |t|
       t.references :manufacturer
+      t.references :category
+      t.string :family
       t.string :name
-      t.string :identifier
+      t.text :description
 
       t.timestamps
     end

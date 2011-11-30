@@ -28,7 +28,7 @@ class ModelsController < ApplicationController
   # GET /models/new.json
   def new
     @model = @manufacturer.models.new
-
+    
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @model }

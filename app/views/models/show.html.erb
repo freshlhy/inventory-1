@@ -2,17 +2,17 @@
 
 <p>
   <b>Manufacturer:</b>
-  <%= @model.manufacturer %>
+  <%= @model.manufacturer.name %>
 </p>
-
+<p>
+  <b>Family:</b>
+  <%= @model.family %>
+</p>
 <p>
   <b>Name:</b>
   <%= @model.name %>
 </p>
-<p>
-  <b>Identifier:</b>
-  <%= @model.identifier %>
-</p>
+
 
 <%= link_to 'Edit', edit_manufacturer_model_path(@manufacturer, @model) %> |
 <%= link_to 'Back', manufacturer_models_path(@manufacturer) %>

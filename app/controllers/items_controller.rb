@@ -1,8 +1,8 @@
 class ItemsController < ApplicationController
   # GET /items
   # GET /items.json
-  def index
-    @items = Item.all
+  def index    
+    @items = Item.paginate(:page => params[:page]).order('created_at DESC')
 
     respond_to do |format|
       format.html # index.html.erb

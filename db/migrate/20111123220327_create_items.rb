@@ -6,9 +6,11 @@ class CreateItems < ActiveRecord::Migration
       t.date :tagged
       t.string :serial
       t.references :model
+      t.text :description
 
       t.timestamps
     end
+    add_index :items, :tag, :unique => true
     add_index :items, :model_id
   end
 end

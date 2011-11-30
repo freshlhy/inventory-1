@@ -2,6 +2,7 @@ class CreateScans < ActiveRecord::Migration
   def change
     create_table :scans do |t|
       t.references :item
+      t.references :site
       t.references :room
       t.text :note
 

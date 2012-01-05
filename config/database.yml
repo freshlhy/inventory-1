@@ -49,5 +49,4 @@ production:
   encoding: unicode
   database: inventory_production
   pool: 5
-  username: inventory
   password:

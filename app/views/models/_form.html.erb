@@ -1,28 +1,29 @@
 <%= form_for([@manufacturer, @model]) do |f| %>
-  <% if @model.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@model.errors.count, "error") %> prohibited this model from being saved:</h2>
+  <%= content_tag :ul, :data => {:role => 'listview', :inset => true} do %>
+    <% if @model.errors.any? %>
+      <li id="error_explanation" class="ui-body-e">
+    
+        <div data-role="collapsible" data-theme="e">
+          <h3><%= pluralize(@model.errors.count, "error") %> prohibited this model from being saved:</h3>
 
-      <ul>
-      <% @model.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
+          <ul>
+          <% @model.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+      </li>
+    <% end %>
+    <li data-role="fieldcontain">
+      <%= f.label :category %>
+      <%= f.collection_select :category_id, Category.all, :id, :name, {:include_blank => true} %>
+    </li>
+    <li data-role="fieldcontain">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </li>
+    <li data-role="fieldcontain">
+      <%= f.submit %>
+    </li>
   <% end %>
-  <div class="field">
-    <%= f.label :category %><br />
-    <%= f.collection_select :category_id, Category.all, :id, :name, {:include_blank => true} %>
-  </div>
-  <div class="field">
-    <%= f.label :family %><br />
-    <%= f.text_field :family %>
-  </div>
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
 <% end %>

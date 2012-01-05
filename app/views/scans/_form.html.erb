@@ -1,29 +1,44 @@
-<%= form_for(@scan) do |f| %>
-  <% if @scan.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@scan.errors.count, "error") %> prohibited this scan from being saved:</h2>
-
-      <ul>
-      <% @scan.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
+<% if @item.model and @item.serial? %>
+  <%= content_tag :ul, :data => {:role => "listview", :inset => true} do %>
+    <%= content_tag(:li, (link_to (["#{@item.tag}", @item.model.display_name, @item.serial].join(' - ')), item_path(@item)), :data => {:theme => "b"}) %>
   <% end %>
+<% else %>
+  <%= content_tag :ul, :data => {:role => "listview", :inset => true} do %>
+    <%= content_tag(:li, (link_to (["#{@item.tag}", @item.model ? @item.model.display_name : "Missing!", @item.serial || "Missing!"].join(' - ')), edit_item_path(@item)), :data => {:theme => "e"}) %>
+  <% end %>
+<% end %>
 
-  <div class="field">
-    <%= f.label :item %><br />
-    <%= f.text_field :item %>
-  </div>
-  <div class="field">
-    <%= f.label :room %><br />
-    <%= f.text_field :room %>
-  </div>
-  <div class="field">
-    <%= f.label :note %><br />
-    <%= f.text_area :note %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<%= form_for([@item, @scan]) do |f| %>
+  <%= content_tag :ul, :data => {:role => 'listview', :inset => true} do %>
+    <% if @scan.errors.any? %>
+      <li id="error_explanation" class="ui-body-e">
+        <div data-role="collapsible" data-theme="e">
+          <h3><%= pluralize(@scan.errors.count, "error") %> prohibited this scan from being saved:</h3>
+          <ul>
+          <% @scan.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+      </li>
+    <% end %>
+    <li data-role="fieldcontain">
+      <label for="scan_site_id">Site</label>
+      <select id="scan_site_id" name="scan[site_id]">
+        <option value=""></option>
+        <%= options_for_select(Site.all.collect {|s| [ s.abbreviation, s.id ] }, { :include_blank => true }) %>
+      </select>
+    </li>
+    <li data-role="fieldcontain">
+      <label for="scan_room_id">Room</label>
+      <%= f.grouped_collection_select :room_id, Site.order(:abbreviation), :rooms, :abbreviation, :id, :name, include_blank: true %>
+    </li>
+    <li data-role="fieldcontain">
+      <%= f.label :note %>
+      <%= f.text_area :note %>
+    </li>
+    <li data-role="fieldcontain">
+      <%= f.submit %>
+    </li>
+  <% end %>
 <% end %>

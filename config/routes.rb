@@ -1,10 +1,13 @@
 Inventory::Application.routes.draw do
+  
+  resources :models
 
   resources :categories
 
-  resources :items do
+  resources :items do 
     resources :scans
   end
+
 
   resources :manufacturers do 
     resources :models

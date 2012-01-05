@@ -1,27 +1,24 @@
-<h1>Listing scans</h1>
-
-<table>
-  <tr>
-    <th>Item</th>
-    <th>Room</th>
-    <th>Note</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @scans.each do |scan| %>
-  <tr>
-    <td><%= scan.item %></td>
-    <td><%= scan.room %></td>
-    <td><%= scan.note %></td>
-    <td><%= link_to 'Show', scan %></td>
-    <td><%= link_to 'Edit', edit_scan_path(scan) %></td>
-    <td><%= link_to 'Destroy', scan, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
+<% if @item.model and @item.serial? %>
+  <%= content_tag :ul, :data => {:role => "listview", :inset => true} do %>
+    <%= content_tag(:li, (link_to (["#{@item.tag}", @item.model.display_name, @item.serial].join(' - ')), item_path(@item)), :data => {:theme => "b"}) %>
+  <% end %>
+<% else %>
+  <%= content_tag :ul, :data => {:role => "listview", :inset => true} do %>
+    <%= content_tag(:li, (link_to (["#{@item.tag}", @item.model ? @item.model.display_name : "Missing!", @item.serial || "Missing!"].join(' - ')), edit_item_path(@item)), :data => {:theme => "e"}) %>
+  <% end %>
 <% end %>
-</table>
 
-<br />
-
-<%= link_to 'New Scan', new_scan_path %>
+<div data-role="collapsible-set" data-theme="c" data-content-theme="d" class="ui-collapsible-set">
+<% @scans.each do |scan| %>
+<div data-role="collapsible">
+  <h3>
+    <%= "#{scan.site.abbreviation} - #{scan.room.name}" if scan.room %>
+    <%= content_tag :span, "#{time_ago_in_words(scan.created_at)} ago", :style =>  "float:right" %>
+  </h3>
+  <p><%= link_to 'Edit scan details', edit_item_scan_path(@item, scan) %></p>
+  <p><%= scan.note %></p>
+  <p><%= scan.created_at %><p>
+</div>
+<% end %>
+</div>
+<%= link_to 'New Scan', new_item_scan_path(@item) %>

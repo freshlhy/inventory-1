@@ -3,7 +3,6 @@ class CreateModels < ActiveRecord::Migration
     create_table :models do |t|
       t.references :manufacturer
       t.references :category
-      t.string :family
       t.string :name
       t.text :description
 

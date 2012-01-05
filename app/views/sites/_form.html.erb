@@ -1,33 +1,37 @@
 <%= form_for(@site) do |f| %>
+  <%= content_tag :ul, :data => {:role => 'listview', :inset => true} do %>
   <% if @site.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@site.errors.count, "error") %> prohibited this site from being saved:</h2>
+    <li id="error_explanation" class="ui-body-e">
+        <div data-role="collapsible" data-theme="e">
+        <h3><%= pluralize(@site.errors.count, "error") %> prohibited this site from being saved:</h3>
 
-      <ul>
-      <% @site.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
+        <ul>
+        <% @site.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </li>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
+  <li data-role="fieldcontain">
+    <%= f.label :name %>
     <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :abbreviation %><br />
+  </li>
+  <li data-role="fieldcontain">
+    <%= f.label :abbreviation %>
     <%= f.text_field :abbreviation %>
-  </div>
-  <div class="field">
-    <%= f.label :latitude %><br />
+  </li>
+  <li data-role="fieldcontain">
+    <%= f.label :latitude %>
     <%= f.text_field :latitude %>
-  </div>
-  <div class="field">
-    <%= f.label :longitude %><br />
+  </li>
+  <li data-role="fieldcontain">
+    <%= f.label :longitude %>
     <%= f.text_field :longitude %>
-  </div>
-  <div class="actions">
+  </li>
+  <li data-role="fieldcontain">
     <%= f.submit %>
-  </div>
+  </li>
+  <% end %>
 <% end %>

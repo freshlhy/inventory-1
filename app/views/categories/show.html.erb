@@ -1,15 +1,12 @@
-<p id="notice"><%= notice %></p>
+<h2><%= @category.name %> (<%= @category.count_items %>)</h2>
+<p><%= @category.description %></p>
+<%= link_to 'Edit', edit_category_path(@category) %>
 
-<p>
-  <b>Name:</b>
-  <%= @category.name %>
-</p>
-
-<p>
-  <b>Description:</b>
-  <%= @category.description %>
-</p>
-
-
-<%= link_to 'Edit', edit_category_path(@category) %> |
-<%= link_to 'Back', categories_path %>
+<%= content_tag :ul, :data => {:role => "listview", :inset => "true"} do %>
+  <% @category.models.each do |model| %>
+    <%= content_tag :li, :class => "ui-li-has-count" do %>
+      <%= link_to "#{model.manufacturer.name} #{model.name}", manufacturer_model_path(model.manufacturer, model) %>
+      <%= content_tag :span, model.items.count, :class => "ui-li-count"%>
+    <% end %>
+  <% end %>
+<% end %>

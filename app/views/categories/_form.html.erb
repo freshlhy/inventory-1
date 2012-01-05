@@ -1,25 +1,28 @@
 <%= form_for(@category) do |f| %>
-  <% if @category.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@category.errors.count, "error") %> prohibited this category from being saved:</h2>
+  <%= content_tag :ul, :data => {:role => 'listview', :inset => true} do %>
+    <% if @category.errors.any? %>
+    <li id="error_explanation" class="ui-body-e">
+      <div data-role="collapsible" data-theme="e">
+        <h2><%= pluralize(@category.errors.count, "error") %> prohibited this category from being saved:</h2>
 
-      <ul>
-      <% @category.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
+        <ul>
+        <% @category.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </li>
+    <% end %>
+    <li data-role="fieldcontain">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </li>
+    <li data-role="fieldcontain">
+      <%= f.label :description %>
+      <%= f.text_area :description %>
+    </li>
+    <li data-role="fieldcontain">
+      <%= f.submit %>
+    </li>
   <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
 <% end %>

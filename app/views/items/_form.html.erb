@@ -11,26 +11,35 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :acquisition_date %><br />
-    <%= f.date_select :acquisition_date %>
+  <div data-role="fieldcontain"  class="ui-hide-label">
+    <%= f.label :tag, "Asset Tag" %>
+    <%= f.text_field :tag, :placeholder => "Asset Tag" %>
   </div>
-  <div class="field">
-    <%= f.label :tag %><br />
-    <%= f.text_field :tag %>
+  <li data-role="fieldcontain">
+    <label for="sites">Manufacturer</label>
+    <select id="manufacturers" name="manufacturers">
+      <option value=""></option>
+      <%= options_for_select(Manufacturer.all.collect {|m| [ m.name, m.name ] }, { :include_blank => true }) %>
+    </select>
+  </li>
+  <li data-role="fieldcontain">
+    <label for="item_model_id">Model</label>
+    <% Model.all.each do |m| %>
+    <% end%>
+    <%= f.grouped_collection_select :model_id, Manufacturer.order(:name), :models, :name, :id, :name, include_blank: true %>
+  </li>
+  <div data-role="fieldcontain" class="ui-hide-label">
+    <%= f.label :serial, "Serial #" %>
+    <%= f.text_field :serial, :placeholder => "Serial #" %>
   </div>
-  <div class="field">
-    <%= f.label :tagged %><br />
-    <%= f.date_select :tagged %>
+  <li data-role="fieldcontain">
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </li>
+
+  <div class="ui-grid-a">
+    <div class="ui-block-a"><%= link_to "Cancel", items_path, :data => {:role => "button", :theme => "d"} %></div>
+    <div class="ui-block-b"><%= f.submit :data => {:theme => "b"} %></div>
   </div>
-  <div class="field">
-    <%= f.label :serial %><br />
-    <%= f.text_field :serial %>
-  </div>
-  <div class="field">
-    <%= f.grouped_collection_select :model_id, Manufacturer.order(:name), :models, :name, :id, :full_name, include_blank: true %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  
 <% end %>

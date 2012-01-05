@@ -1,5 +1,7 @@
-<h1>New site</h1>
+<h2>New site</h2>
 
 <%= render 'form' %>
 
-<%= link_to 'Back', sites_path %>
+<% content_for :footer do %>
+  <%= content_tag(:h3, link_to('Back', sites_path, :data => {:role => "button"})) %>
+<% end %>

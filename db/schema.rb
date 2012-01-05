@@ -26,11 +26,14 @@ ActiveRecord::Schema.define(:version => 20111128213327) do
     t.date     "tagged"
     t.string   "serial"
     t.integer  "model_id"
+    t.text     "description"
+    t.string   "po"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "items", ["model_id"], :name => "index_items_on_model_id"
+  add_index "items", ["tag"], :name => "index_items_on_tag", :unique => true
 
   create_table "manufacturers", :force => true do |t|
     t.string   "name"
@@ -41,7 +44,6 @@ ActiveRecord::Schema.define(:version => 20111128213327) do
   create_table "models", :force => true do |t|
     t.integer  "manufacturer_id"
     t.integer  "category_id"
-    t.string   "family"
     t.string   "name"
     t.text     "description"
     t.datetime "created_at"

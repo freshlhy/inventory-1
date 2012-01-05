@@ -5,12 +5,51 @@
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <meta name = "viewport" content = "width = device-width, user-scalable = no, initial-scale = 1.0, maximum-scale = 1.0">
+  <meta name = "apple-mobile-web-app-capable" content = "yes">
+  <meta name = "apple-mobile-web-app-status-bar-style" content = "black-translucent">
 </head>
 <body>
-<%= link_to 'Items', items_path %> |
-<%= link_to 'Sites', sites_path %> |
-<%= link_to 'Manufacturers', manufacturers_path %>
-<%= yield %>
-
+  <div data-role="page" id="page">
+    <div data-role="header">
+      <div data-role="navbar">
+        <ul>
+          <li>
+            <%= link_to_unless(controller_name == 'items' || controller_name == 'scans', 'Items', items_path) do 
+                  link_to('Items', items_path, :class => 'ui-btn-active')
+                end %>
+          </li>
+          <li>
+            <%= link_to_unless(controller_name == 'sites' || controller_name == 'rooms', 'Sites', sites_path  ) do 
+                  link_to('Sites', sites_path, :class => 'ui-btn-active')
+                end %>
+          </li>
+          <li>
+            <%= link_to_unless(controller_name == 'models' || controller_name == 'manufacturers', "Manufacturers", manufacturers_path) do
+                  link_to('Manufacturers', manufacturers_path, :class => 'ui-btn-active')
+                  end %>
+          </li>
+          <li>
+            <%= link_to_unless(controller_name == 'categories', 'Categories', categories_path) do 
+                  link_to('Categories', categories_path, :class => 'ui-btn-active')
+                end %>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div data-role="content">
+      <% unless flash.empty? -%>
+        <%= content_tag :ul, :data => {:role => "listview", :inset => true} do %>
+          <% flash.each do |key, value| -%>
+            <%= content_tag(:li, (value), :class => key, :data => {:theme => "e"}) %>
+          <% end %>
+        <% end %>
+      <% end %>
+      <%= yield %>
+    </div>
+    <div data-role="footer">
+      <%= content_for?(:footer) ? yield(:footer) : content_tag(:h3, "PUHSD Inventory") %>
+    </div>
+  </div>
 </body>
 </html>

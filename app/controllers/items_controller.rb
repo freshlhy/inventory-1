@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.json
   def index    
-    @items = Item.paginate(:page => params[:page]).order('created_at DESC')
+    @items = Item.paginate(:page => params[:page], :per_page => 6).order('created_at DESC')
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +13,7 @@ class ItemsController < ApplicationController
   # GET /items/1
   # GET /items/1.json
   def show
-    @item = Item.find(params[:id])
+    @item = Item.find_by_tag(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -34,7 +34,7 @@ class ItemsController < ApplicationController
 
   # GET /items/1/edit
   def edit
-    @item = Item.find(params[:id])
+    @item = Item.find_by_tag(params[:id])
   end
 
   # POST /items
@@ -56,7 +56,7 @@ class ItemsController < ApplicationController
   # PUT /items/1
   # PUT /items/1.json
   def update
-    @item = Item.find(params[:id])
+    @item = Item.find_by_tag(params[:id])
 
     respond_to do |format|
       if @item.update_attributes(params[:item])
@@ -72,7 +72,7 @@ class ItemsController < ApplicationController
   # DELETE /items/1
   # DELETE /items/1.json
   def destroy
-    @item = Item.find(params[:id])
+    @item = Item.find_by_tag(params[:id])
     @item.destroy
 
     respond_to do |format|

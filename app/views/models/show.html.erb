@@ -1,18 +1,8 @@
-<p id="notice"><%= notice %></p>
+<h2><%= link_to @model.manufacturer.name, manufacturer_models_path(@model.manufacturer) %> - <%= @model.name %></h2>
 
-<p>
-  <b>Manufacturer:</b>
-  <%= @model.manufacturer.name %>
-</p>
-<p>
-  <b>Family:</b>
-  <%= @model.family %>
-</p>
-<p>
-  <b>Name:</b>
-  <%= @model.name %>
-</p>
-
-
-<%= link_to 'Edit', edit_manufacturer_model_path(@manufacturer, @model) %> |
-<%= link_to 'Back', manufacturer_models_path(@manufacturer) %>
+<%= link_to 'Edit', edit_manufacturer_model_path(@manufacturer, @model) %>
+<%= content_tag :ul, :data => {:role => "listview", :inset => "true"} do %>
+<% @model.items.all.each do |item| %>
+	<li><%= link_to "#{item.tag} - #{item.serial}", item %></li>
+<% end %>
+<% end %>

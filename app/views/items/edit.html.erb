@@ -1,6 +1,5 @@
-<h1>Editing item</h1>
-
 <%= render 'form' %>
 
-<%= link_to 'Show', @item %> |
-<%= link_to 'Back', items_path %>
+<% content_for :footer do %>
+  <%= content_tag :h3, link_to('Back', item_path(@item), :data => {:role => "button"}) %>
+<% end %>

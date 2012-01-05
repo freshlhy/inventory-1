@@ -7,6 +7,7 @@ class CreateItems < ActiveRecord::Migration
       t.string :serial
       t.references :model
       t.text :description
+      t.string :po
 
       t.timestamps
     end

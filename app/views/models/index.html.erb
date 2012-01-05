@@ -1,27 +1,10 @@
-<h1>Listing models for <%= link_to @manufacturer.name, @manufacturer %></h1>
-
-<table>
-  <tr>
-    <th>ID</th>
-    <th>Category</th>
-    <th>Name</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @models.each do |m| %>
-  <tr>
-    <td><%= m.id %></td>
-    <td><%= m.category.name if m.category %></td>
-    <td><%= m.full_name %></td>
-    <td><%= link_to 'Show', manufacturer_model_path(@manufacturer, m) %></td>
-    <td><%= link_to 'Edit', edit_manufacturer_model_path(@manufacturer, m) %></td>
-    <td><%= link_to 'Destroy', [@manufacturer, m], confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
+<h2><%= @manufacturer.name %></h2>
+<%= link_to "New Model", new_manufacturer_model_path(@manufacturer) %>
+<%= content_tag :ul, :data => {:role => "listview", :inset => "true"} do %>
+  <% @models.each do |m| %>
+    <%= content_tag :li, :class => "ui-li-has-count" do %>
+      <%= link_to m.name, manufacturer_model_path(m.manufacturer, m) %>
+      <%= content_tag :span, m.items.count, :class => "ui-li-count"%>
+    <% end %>
+  <% end %>
 <% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Model', new_manufacturer_model_path(@manufacturer) %>

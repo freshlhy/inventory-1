@@ -5,7 +5,11 @@ class ModelsController < ApplicationController
   # GET /models
   # GET /models.json
   def index
-    @models = @manufacturer.models.all
+    if @manufacturer
+      @models = @manufacturer.models.all
+    else
+      @models = Model.all
+    end
 
     respond_to do |format|
       format.html # index.html.erb

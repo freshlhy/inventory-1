@@ -1,20 +1,33 @@
-<p id="notice"><%= notice %></p>
+<% if @item.model and @item.serial? %>
+  <%= content_tag :ul, :data => {:role => "listview", :inset => true} do %>
+    <%= content_tag(:li, (link_to (["#{@item.tag}", @item.model.display_name, @item.serial].join(' - ')), item_path(@item)), :data => {:theme => "b"}) %>
+  <% end %>
+<% else %>
+  <%= content_tag :ul, :data => {:role => "listview", :inset => true} do %>
+    <%= content_tag(:li, (link_to (["#{@item.tag}", @item.model ? @item.model.display_name : "Missing!", @item.serial || "Missing!"].join(' - ')), edit_item_path(@item)), :data => {:theme => "e"}) %>
+  <% end %>
+<% end %>
 
-<p>
+<%= content_tag :ul, :data => {:role => 'listview', :inset => true} do %>
+<li data-role="fieldcontain">
   <b>Item:</b>
-  <%= @scan.item %>
-</p>
-
-<p>
+  <%= @scan.item.tag %>
+</li>
+<li>
+  <b>Site:</b>
+  <%= @scan.site.abbreviation %>
+</li>
+<li>
   <b>Room:</b>
-  <%= @scan.room %>
-</p>
+  <%= @scan.room.name %>
+</li>
 
-<p>
+<li>
   <b>Note:</b>
   <%= @scan.note %>
-</p>
+</li>
+<% end %>
 
 
-<%= link_to 'Edit', edit_scan_path(@scan) %> |
-<%= link_to 'Back', scans_path %>
+<%= link_to 'Edit', edit_item_scan_path(@item, @scan) %> |
+<%= link_to 'Back', item_scans_path(@item) %>

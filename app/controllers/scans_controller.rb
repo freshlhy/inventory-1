@@ -45,7 +45,7 @@ class ScansController < ApplicationController
     @scan.archived = false
     respond_to do |format|
       if @scan.save
-        if @item.serial && @item.model
+        if @item.serial? && @item.model
           format.html { redirect_to(item_scans_path(@item), notice: 'Scan was successfully created.') }
           format.json { render json: @scan, status: :created, location: @scan }
         else
@@ -89,6 +89,6 @@ class ScansController < ApplicationController
   
   private
   def get_item
-    @item = Item.find_or_create_by_tag(params[:item_id])
+    @item = Item.find_or_create_by_tag(params[:item_id].parameterize)
   end
 end

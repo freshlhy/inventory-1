@@ -51,7 +51,7 @@
       <%= render scan %>
     <% end %>
     <% if @item.scans.count > 5 %>
-      <%= content_tag :div, :data => {:role => "collapsible", :theme => (scan.archived ? "c" : "b")} do%>
+      <%= content_tag :div, :data => {:role => "collapsible", :theme => "c"} do%>
         <%= content_tag :h3, link_to('View Scan History', item_scans_path(@item), :data => {:role => "button", :icon => "grid"}) %>
       <% end %>
     <% end %>

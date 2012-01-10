@@ -1,7 +1,7 @@
 <% if @item.model and @item.serial? %>
   <%= content_tag :h3, link_to([@item.tag, @item.model.display_name].join(" - "), item_path(@item)) %>
 <% else %>
-    <%= content_tag(:h2, link_to(@item.tag, edit_item_path(@item)), :data => {:theme => "e"}) %>
+    <%= link_to(@item.tag, edit_item_path(@item), :data => {:role => "button", :icon => "alert", :theme => "e"}) %>
 <% end %>
 
 <%= form_for([@item, @scan]) do |f| %>

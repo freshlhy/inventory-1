@@ -1,5 +1,46 @@
+<%= form_for(@item) do |f| %>
+  <% if @item.errors.any? %>
+    <div data-role="collapsible" data-theme="e">
+      <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
+
+      <ul>
+      <% @item.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  </li>
+  <% end %>
+  <%= content_tag :ul, :data => {:role => 'listview', :inset => true} do %>
+    <li data-role="fieldcontain">
+      <%= f.label :tag %>
+      <%= f.text_field :tag, :placeholder => "Asset Tag" %>
+    </li>
+    <li data-role="fieldcontain">
+      <label for="manufacturers">Manufacturer</label>
+      <select id="manufacturers" name="manufacturers">
+        <option value=""></option>
+        <%= options_for_select(Manufacturer.all.collect {|m| [ m.name, m.name ] }, { :include_blank => true }) %>
+      </select>
+    </li>
+    <li data-role="fieldcontain">
+      <label for="item_model_id">Model</label>
+      <%= f.grouped_collection_select :model_id, Manufacturer.order(:name), :models, :name, :id, :name, include_blank: true %>
+    </li>
+    <li data-role="fieldcontain">
+      <%= f.label :serial, "Serial #" %>
+      <%= f.text_field :serial, :placeholder => "Serial #" %>
+    </li>
+    <li data-role="fieldcontain">
+      <%= f.label :description %>
+      <%= f.text_area :description, :placeholder => "Description" %>
+    </li>
+    <li data-role="fieldcontain">
+      <%= f.submit :data => {:theme => "b"} %>
+    </li>
+  <% end %>
+<% end %>
+
 <% content_for :footer do %>
  <%= content_tag :h4, link_to('Back', items_path, :data => {:role => "button", :icon => "back"}) %>
 <% end %>
-
-<%= render 'form' %>

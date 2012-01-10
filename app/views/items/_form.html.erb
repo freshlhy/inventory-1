@@ -2,19 +2,21 @@
   <% if @item.model and @item.serial? %>
       <%= content_tag :h3, @item.tag %>
   <% else %>
-      <%= content_tag :h3, @item.tag, :data => {:theme => "e"} %>
+  <%= link_to(@item.tag, edit_item_path(@item), :data => {:role => "button", :icon => "alert", :theme => "e"}) %>
   <% end %>
 
   <%= form_for(@item) do |f| %>
     <% if @item.errors.any? %>
-      <div id="error_explanation">
+      <div data-role="collapsible" data-theme="e">
         <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
+
         <ul>
         <% @item.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
         <% end %>
         </ul>
       </div>
+    </li>
     <% end %>
     <%= content_tag :ul, :data => {:role => 'listview', :inset => true} do %>
       <li data-role="fieldcontain">

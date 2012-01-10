@@ -1,5 +1,5 @@
 <%= render 'form' %>
 
 <% content_for :footer do %>
-  <%= content_tag :h3, link_to('Back', item_path(@item), :data => {:role => "button"}) %>
+  <%= content_tag(:h3, link_to('Back', item_path(@item), :data => {:role => "button", :icon => "back"})) %>
 <% end %>

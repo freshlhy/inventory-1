@@ -10,3 +10,7 @@
     <% end %>
   <% end %>
 <% end %>
+
+<% content_for :footer do %>
+  <%= content_tag(:h3, link_to('Back', categories_path, :data => {:role => "button", :icon => "back"})) %>
+<% end %>

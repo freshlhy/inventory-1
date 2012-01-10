@@ -1,1 +1,24 @@
+<script>
+$(function() {
+	var lat = '';
+	var lon = '';
+	navigator.geolocation.getCurrentPosition(foundLocation, noLocation);
+	function foundLocation(position)
+	{
+		lat = position.coords.latitude;
+		lon = position.coords.longitude;
+		console.log('Found location: ' + lat + ', ' + lon);
+		$("#scan_latitude").val(lat);
+		$("#scan_longitude").val(lon);
+	}
+	function noLocation()
+	{
+		console.log('Could not find location');
+	}
+});
+</script>
 <%= render 'form' %>
+
+<% content_for :footer do %>
+  <%= content_tag(:h3, link_to('Back', item_path(@item), :data => {:role => "button", :icon => "back"})) %>
+<% end %>

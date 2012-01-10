@@ -2,5 +2,7 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @manufacturer %> |
-<%= link_to 'Back', manufacturers_path %>
+<% content_for :footer do %>
+  <%= content_tag(:h3, link_to('Back', manufacturer_path(@manufacturer), :data => {:role => "button", :icon => "back"})) %>
+<% end %>
+

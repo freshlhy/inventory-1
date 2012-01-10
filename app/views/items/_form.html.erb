@@ -1,45 +1,43 @@
-<%= form_for(@item) do |f| %>
-  <% if @item.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
 
-      <ul>
-      <% @item.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
+  <% if @item.model and @item.serial? %>
+      <%= content_tag :h3, @item.tag %>
+  <% else %>
+      <%= content_tag :h3, @item.tag, :data => {:theme => "e"} %>
   <% end %>
 
-  <div data-role="fieldcontain"  class="ui-hide-label">
-    <%= f.label :tag, "Asset Tag" %>
-    <%= f.text_field :tag, :placeholder => "Asset Tag" %>
-  </div>
-  <li data-role="fieldcontain">
-    <label for="sites">Manufacturer</label>
-    <select id="manufacturers" name="manufacturers">
-      <option value=""></option>
-      <%= options_for_select(Manufacturer.all.collect {|m| [ m.name, m.name ] }, { :include_blank => true }) %>
-    </select>
-  </li>
-  <li data-role="fieldcontain">
-    <label for="item_model_id">Model</label>
-    <% Model.all.each do |m| %>
-    <% end%>
-    <%= f.grouped_collection_select :model_id, Manufacturer.order(:name), :models, :name, :id, :name, include_blank: true %>
-  </li>
-  <div data-role="fieldcontain" class="ui-hide-label">
-    <%= f.label :serial, "Serial #" %>
-    <%= f.text_field :serial, :placeholder => "Serial #" %>
-  </div>
-  <li data-role="fieldcontain">
-    <%= f.label :description %>
-    <%= f.text_area :description %>
-  </li>
-
-  <div class="ui-grid-a">
-    <div class="ui-block-a"><%= link_to "Cancel", items_path, :data => {:role => "button", :theme => "d"} %></div>
-    <div class="ui-block-b"><%= f.submit :data => {:theme => "b"} %></div>
-  </div>
-  
-<% end %>
+  <%= form_for(@item) do |f| %>
+    <% if @item.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
+        <ul>
+        <% @item.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <%= content_tag :ul, :data => {:role => 'listview', :inset => true} do %>
+      <li data-role="fieldcontain">
+        <label for="manufacturers">Manufacturer</label>
+        <select id="manufacturers" name="manufacturers">
+          <option value=""></option>
+          <%= options_for_select(Manufacturer.all.collect {|m| [ m.name, m.name ] }, { :include_blank => true }) %>
+        </select>
+      </li>
+      <li data-role="fieldcontain">
+        <label for="item_model_id">Model</label>
+        <%= f.grouped_collection_select :model_id, Manufacturer.order(:name), :models, :name, :id, :name, include_blank: true %>
+      </li>
+      <li data-role="fieldcontain">
+        <%= f.label :serial, "Serial #" %>
+        <%= f.text_field :serial, :placeholder => "Serial #" %>
+      </li>
+      <li data-role="fieldcontain">
+        <%= f.label :description %>
+        <%= f.text_area :description, :placeholder => "Description" %>
+      </li>
+      <li data-role="fieldcontain">
+        <%= f.submit :data => {:theme => "b"} %>
+      </li>
+    <% end %>
+  <% end %>

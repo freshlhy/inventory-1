@@ -5,6 +5,6 @@
 <% link_to 'Delete', [@site, @room], confirm: 'Are you sure?', method: :delete %>
 
 <% content_for :footer do %>
-  <%= content_tag(:h3, link_to('Back', site_rooms_path(@site), :data => {:role => "button"})) %>
+  <%= content_tag :h3, link_to('Back', site_rooms_path(@site), :data => {:role => "button", :icon => "back"}) %>
 <% end %>
 

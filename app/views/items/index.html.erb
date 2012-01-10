@@ -1,3 +1,4 @@
+<%= link_to('New Item', new_item_path) %>
 <div data-role="collapsible-set" data-theme="c" data-content-theme="d" class="ui-collapsible-set">
 <% @items.each do |item| %>
   <div data-role="collapsible">
@@ -7,23 +8,22 @@
     </h3>
     <p>Serial #: <%= item.serial %>
     </p>
-      <p><i><%= "Scanned at #{item.most_recent_scan.site ? item.most_recent_scan.site.abbreviation : 'Unknown'} #{item.most_recent_scan.room ? item.most_recent_scan.room.name : 'Unknown'} #{time_ago_in_words(item.most_recent_scan.created_at)} ago" if item.most_recent_scan %></i></p>
+    <% if item.most_recent_scan %>
+      <p><i>
+        <%= link_to("#{item.most_recent_scan.site.abbreviation} #{item.most_recent_scan.room.name}", site_room_path(item.most_recent_scan.site, item.most_recent_scan.room)) %>
+        <%= time_ago_in_words(item.most_recent_scan.created_at)%> ago
+      </i></p>
+    <% end %>
     <p>
-      <% if item.model and item.serial? %>
-        <%= link_to 'Item Details', item_path(item) %>
-      <% else %>
-        <%= link_to 'Item Details', edit_item_path(item) %>
-      <% end %>
-      | <%= link_to "Scans (#{item.scans.count.to_s})", item_scans_path(item) %>
+      <%= link_to 'Item Details', item_path(item) %>
     </p>
-    
   </div>
 <% end %>
 </div>
 <div data-role="fieldcontain" id="div-slider" data-theme="a">
-   <input type="range" name="slider" id="slider" value="<%= params[:page] || '1' %>" min="1" max="<%=@items.total_pages %>"  />
+  <label for="slider" class="ui-hidden-accessible">Pages:</label>
+  <input type="range" name="slider" id="slider" value="<%= params[:page] || '1' %>" min="1" max="<%=@items.total_pages %>"  />
 </div>
-<%= @items.total_pages %>
-<% content_for :footer do %>
-  <%= content_tag :h3, link_to('Add Item', new_item_path, :data => {:role => "button"}) %>
-<% end %>
+<h2>
+<%= will_paginate @items, :inner_window => 0, :outer_window => 0 %>
+</h2>

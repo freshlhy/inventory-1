@@ -6,3 +6,19 @@
  *= require jquery.mobile-1.0
  *= require_tree . 
 */
+
+.sprite {
+	background-image: url("/assets/sprite.png");
+	background-repeat: no-repeat;
+	-moz-border-radius: 				9px;
+	-webkit-border-radius: 				9px;
+	border-radius: 						9px;
+	-moz-background-size: 36px 36px;
+	-o-background-size: 36px 36px;
+	-webkit-background-size: 36px 36px;
+	background-size: 36px 36px;
+}
+.sprite.location {
+	background-position:right 50%;
+	padding-right:36px;
+}

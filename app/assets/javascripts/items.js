@@ -3,6 +3,7 @@
 // You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 $("#page").live('pageinit', function(event) {
+	console.log("pageinit");
   $('select#manufacturers').selectmenu("refresh");
   var pmodel, models, model;
   pmodel = $('#item_model_id').val();
@@ -19,11 +20,14 @@ $("#page").live('pageinit', function(event) {
     } else {
       return $('#item_model_id').empty().selectmenu('refresh', true);
     }
-  });
+  })
+	$(".pagination > a").attr("data-role", "button");
+	$(".pagination > a").removeClass();
 });
 
-$(window).load(function(){
+$(function() {
 	$("#slider").change(function() {
+		//console.log($(this).val());
 		sVal = $(this).val();
 		location.href = ("?page=" + sVal);
 	});

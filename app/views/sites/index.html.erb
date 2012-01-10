@@ -2,8 +2,8 @@
 <%= content_tag :ul, :data => {:role => "listview", :inset => "true"} do %>
   <% @sites.each do |site| %>
     <%= content_tag :li, :class => "ui-li-has-count" do %>  
-      <%= link_to site.name, site_rooms_path(site) %>
-      <%= content_tag :span, site.rooms.count, :class => "ui-li-count"%>  
+      <%= link_to site.name, site_path(site) %>
+      <%= content_tag :span, site.items.count, :class => "ui-li-count"%>  
     <% end %>
   <% end %>
 <% end %>

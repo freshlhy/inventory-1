@@ -42,10 +42,16 @@ class ScansController < ApplicationController
   # POST /scans.json
   def create
     @scan = @item.scans.new(params[:scan])
+    @scan.archived = false
     respond_to do |format|
       if @scan.save
-        format.html { redirect_to(item_scans_path(@item), notice: 'Scan was successfully created.') }
-        format.json { render json: @scan, status: :created, location: @scan }
+        if @item.serial && @item.model
+          format.html { redirect_to(item_scans_path(@item), notice: 'Scan was successfully created.') }
+          format.json { render json: @scan, status: :created, location: @scan }
+        else
+          format.html { redirect_to(edit_item_path(@item), notice: 'Scan was successfully created, item details missing!') }
+          format.json { render json: @scan, status: :created, location: @scan }
+        end
       else
         format.html { render action: "new" }
         format.json { render json: @scan.errors, status: :unprocessable_entity }
@@ -76,7 +82,7 @@ class ScansController < ApplicationController
     @scan.destroy
 
     respond_to do |format|
-      format.html { redirect_to scans_url }
+      format.html { redirect_to item_scans_url(@item) }
       format.json { head :ok }
     end
   end

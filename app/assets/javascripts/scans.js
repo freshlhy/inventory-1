@@ -24,4 +24,10 @@ $("#page").live('pageinit', function(event) {
       return $('#scan_room_id').empty().selectmenu('refresh', true);
     }
   });
+
+});
+
+$("#page").live('pageinit', function(event) {
+
+	
 });

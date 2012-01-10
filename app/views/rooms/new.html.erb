@@ -1,5 +1,7 @@
-<h1>New room for <%= @site.name %></h1>
+<h1>New room for <%= @site.abbreviation %></h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Back', site_rooms_path(@site) %>
+<% content_for :footer do %>
+  <%= content_tag :h3, link_to('Back', @site, :data => {:role => "button", :icon => "back", :icon => "back"}) %>
+<% end %>

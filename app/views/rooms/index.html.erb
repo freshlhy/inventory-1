@@ -1,11 +1,8 @@
 <h2><%= @site.name %></h2>
 <%= link_to 'New Room', new_site_room_path(@site) %>
 
-<%= content_tag :ul, :data => {:role => "listview", :inset => "true"} do %>
-  <% @rooms.each do |room| %>
-    <%= content_tag :li, :class => "ui-li-has-count" do %>
-      <%= link_to room.name, site_room_path(@site, room) %>
-      <%= content_tag :span, room.distinct_scans, :class => "ui-li-count" %>
-    <% end %>
+<%= content_tag( :div, :data => {:role => "collapsible-set", :theme => "c", "content-theme" => "d"}, :class => "ui-collapsible-set") do %>
+  <% @rooms.each do |room| %>  
+    <%= render room %>
   <% end %>
 <% end %>

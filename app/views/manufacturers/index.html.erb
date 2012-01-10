@@ -1,11 +1,9 @@
 <%= link_to 'New Manufacturer', new_manufacturer_path %>
-
 <%= content_tag :ul, :data => {:role => "listview", :inset => "true"} do %>
-<% @manufacturers.each do |manufacturer| %>
-  <%= content_tag :li, :class => "ui-li-has-count" do %>
-    <%= link_to manufacturer.name, manufacturer_models_path(manufacturer) %>
-    <%= content_tag :span, manufacturer.models.count, :class => "ui-li-count"%>  
+  <% @manufacturers.each do |manufacturer| %>
+    <%= content_tag :li, :class => "ui-li-has-count" do %>
+      <%= link_to manufacturer.name, manufacturer_path(manufacturer) %>
+      <%= content_tag :span, manufacturer.models.count, :class => "ui-li-count"%>  
+    <% end %>
   <% end %>
 <% end %>
-<% end %>
-<br />

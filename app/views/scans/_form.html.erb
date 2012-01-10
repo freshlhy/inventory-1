@@ -1,11 +1,7 @@
 <% if @item.model and @item.serial? %>
-  <%= content_tag :ul, :data => {:role => "listview", :inset => true} do %>
-    <%= content_tag(:li, (link_to (["#{@item.tag}", @item.model.display_name, @item.serial].join(' - ')), item_path(@item)), :data => {:theme => "b"}) %>
-  <% end %>
+  <%= content_tag :h3, link_to([@item.tag, @item.model.display_name].join(" - "), item_path(@item)) %>
 <% else %>
-  <%= content_tag :ul, :data => {:role => "listview", :inset => true} do %>
-    <%= content_tag(:li, (link_to (["#{@item.tag}", @item.model ? @item.model.display_name : "Missing!", @item.serial || "Missing!"].join(' - ')), edit_item_path(@item)), :data => {:theme => "e"}) %>
-  <% end %>
+    <%= content_tag(:h2, link_to(@item.tag, edit_item_path(@item)), :data => {:theme => "e"}) %>
 <% end %>
 
 <%= form_for([@item, @scan]) do |f| %>
@@ -38,6 +34,10 @@
       <%= f.text_area :note %>
     </li>
     <li data-role="fieldcontain">
+      <% f.label :latitude %>
+      <%= f.hidden_field :latitude %>
+      <% f.label :longitude %>
+      <%= f.hidden_field :longitude %>
       <%= f.submit %>
     </li>
   <% end %>

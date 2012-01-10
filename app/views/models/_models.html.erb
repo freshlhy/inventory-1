@@ -1,0 +1,8 @@
+<%= content_tag :ul, :data => {:role => "listview", :inset => "true"} do %>
+  <% @models.each do |m| %>
+    <%= content_tag :li, :class => "ui-li-has-count" do %>
+      <%= link_to m.name, manufacturer_model_path(m.manufacturer, m) %>
+      <%= content_tag :span, m.items.count, :class => "ui-li-count"%>
+    <% end %>
+  <% end %>
+<% end %>

@@ -1,10 +1,17 @@
-<p id="notice"></p>
-
-<p>
-  <b>Name:</b>
-  <%= @manufacturer.name %>
-</p>
-
-<%= link_to 'Models', manufacturer_models_path(@manufacturer) %> |
+<h2><%= @manufacturer.name %></h2>
+<%= content_tag :p, @manufacturer.description %>
 <%= link_to 'Edit', edit_manufacturer_path(@manufacturer) %> |
-<%= link_to 'Back', manufacturers_path %>
+<%= link_to "New Model", new_manufacturer_model_path(@manufacturer) %>
+
+<%= content_tag :ul, :data => {:role => "listview", :inset => "true"} do %>
+  <% @manufacturer.models.each do |model| %>
+    <%= content_tag :li, :class => "ui-li-has-count" do %>
+      <%= link_to model.name, manufacturer_model_path(@manufacturer, model) %>
+      <%= content_tag :span, model.items.count, :class => "ui-li-count"%>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% content_for :footer do %>
+  <%= content_tag(:h3, link_to('Back', manufacturers_path, :data => {:role => "button", :icon => "back"})) %>
+<% end %>

@@ -1,37 +1,15 @@
-<h2><%= @site.name %></h2>
-
-<ul data-role="listview" data-inset="true" class="ui-grid-a">
-  <li>
-    <div class="ui-grid-a">
-      <div class="ui-block-a">Room: </div>
-      <div class="ui-block-b"><%= @room.name %></div>
-    </div>
-  </li>
-  <li>
-    <div class="ui-grid-a">
-      <div class="ui-block-a">Desc: </div>
-      <div class="ui-block-b">  <%= @room.description %></div>
-    </div>
-  </li>
-  <li>
-    <div class="ui-grid-a">
-      <div class="ui-block-a">Lat: </div>
-      <div class="ui-block-b">  <%= @room.latitude %></div>
-    </div>
-  </li>
-  <li>
-    <div class="ui-grid-a">
-      <div class="ui-block-a">Lon: </div>
-      <div class="ui-block-b"><%= @room.longitude %></div>
-    </div>
-  </li>
-</ul>
+<h2><%= link_to @site.abbreviation, @site %></h2>
 <%= link_to 'Edit', edit_site_room_path(@site, @room) %>
-<ol>
+
+<div data-role="collapsible-set" data-theme="c" data-content-theme="d" class="ui-collapsible-set">
+    <%= render @room %>
+</div>
+<%= content_tag :h3, "#{@room.items.count} items" %>
+<ul data-role="listview" data-inset="true" class="ui-grid-a">
 <% @room.items.each do |item| %>
-<%= content_tag :li, item.tag %>
+<%= content_tag :li, (link_to (item.tag + ((" - " + item.model.manufacturer.name + " " + item.model.name) if item.model).to_s), item_path(item)) %>
 <% end %>
-</ol>
+</ul>
 <% content_for :footer do %>
-  <%= content_tag :h3, link_to('Back', site_rooms_path(@site), :data => {:role => "button"}) %>
+  <%= content_tag :h3, link_to('Back', site_path(@site), :data => {:role => "button", :icon => "back"}) %>
 <% end %>

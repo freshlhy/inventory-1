@@ -1,24 +1,16 @@
 <% if @item.model and @item.serial? %>
-  <%= content_tag :ul, :data => {:role => "listview", :inset => true} do %>
-    <%= content_tag(:li, (link_to (["#{@item.tag}", @item.model.display_name, @item.serial].join(' - ')), item_path(@item)), :data => {:theme => "b"}) %>
-  <% end %>
+    <%= link_to((["#{@item.tag}", @item.model.display_name, @item.serial].join(' - ')), item_path(@item), :data => {:theme => "a", :role => "button"}) %>
 <% else %>
-  <%= content_tag :ul, :data => {:role => "listview", :inset => true} do %>
-    <%= content_tag(:li, (link_to (["#{@item.tag}", @item.model ? @item.model.display_name : "Missing!", @item.serial || "Missing!"].join(' - ')), edit_item_path(@item)), :data => {:theme => "e"}) %>
+    <%= link_to((["#{@item.tag}", @item.model ? @item.model.display_name : "Missing!", @item.serial || "Missing!"].join(' - ')), edit_item_path(@item), :data => {:theme => "e", :role => "button"}) %>
+<% end %>
+<h4><%= @scans.count %> Scans</h4>
+<div data-role="collapsible-set" data-content-theme="d" class="ui-collapsible-set">
+  <% @scans.each do |scan| %>
+    <%= render scan %>
   <% end %>
-<% end %>
-
-<div data-role="collapsible-set" data-theme="c" data-content-theme="d" class="ui-collapsible-set">
-<% @scans.each do |scan| %>
-<div data-role="collapsible">
-  <h3>
-    <%= "#{scan.site.abbreviation} - #{scan.room.name}" if scan.room %>
-    <%= content_tag :span, "#{time_ago_in_words(scan.created_at)} ago", :style =>  "float:right" %>
-  </h3>
-  <p><%= link_to 'Edit scan details', edit_item_scan_path(@item, scan) %></p>
-  <p><%= scan.note %></p>
-  <p><%= scan.created_at %><p>
-</div>
-<% end %>
 </div>
 <%= link_to 'New Scan', new_item_scan_path(@item) %>
+
+<% content_for :footer do %>
+  <%= content_tag(:h3, link_to('Back', item_path(@item), :data => {:role => "button", :icon => "back"})) %>
+<% end %>

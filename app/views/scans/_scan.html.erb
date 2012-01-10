@@ -1,0 +1,16 @@
+<%= content_tag :div, :data => {:role => "collapsible", :theme => (scan.archived ? "c" : "b")} do%>
+  <h3>
+    <%= "#{scan.site.abbreviation} - #{scan.room.name}" if scan.room %>
+    <%= content_tag :span, "#{time_ago_in_words(scan.created_at)} ago", :style =>  "float:right" %>
+  </h3>
+  <ul data-role="listview" data-inset="true" class="ui-grid-a">
+    <li>
+      <%= link_to 'Edit scan details', edit_item_scan_path(@item, scan) %>
+      <%= link_to 'Delete', [@item, scan], confirm: 'Are you sure?', method: :delete, :style => "float:right", :data => {:role => "button", :icon => "delete", :theme => "e", :iconpos => "notext", :inline => true} if scan.archived == true%>
+    </li>
+    <li><%= scan.note %></li>
+    <li><%= time_tag(scan.created_at) %></li>
+    <%= content_tag(:li, "Latitude: #{scan.latitude}") if scan.latitude %>
+    <%= content_tag(:li, "Longitude: #{scan.longitude}") if scan.longitude %>
+  </ul>
+<% end %>

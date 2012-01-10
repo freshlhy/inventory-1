@@ -1,8 +1,13 @@
 <h2><%= link_to @model.manufacturer.name, manufacturer_models_path(@model.manufacturer) %> - <%= @model.name %></h2>
 
 <%= link_to 'Edit', edit_manufacturer_model_path(@manufacturer, @model) %>
+
 <%= content_tag :ul, :data => {:role => "listview", :inset => "true"} do %>
-<% @model.items.all.each do |item| %>
-	<li><%= link_to "#{item.tag} - #{item.serial}", item %></li>
+  <% @model.items.all.each do |item| %>
+  	<li><%= link_to "#{item.tag} - #{item.serial}", item %></li>
+  <% end %>
 <% end %>
+
+<% content_for :footer do %>
+  <%= content_tag :h3, link_to('Back', manufacturer_path(@manufacturer), :data => {:role => "button", :icon => "back"}) %>
 <% end %>

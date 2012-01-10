@@ -1,23 +1,14 @@
-<p>
-  <b>Name:</b>
+<h2>
   <%= @site.name %>
-</p>
+</h2>
 
-<p>
-  <b>Abbreviation:</b>
-  <%= @site.abbreviation %>
-</p>
-
-<p>
-  <b>Latitude:</b>
-  <%= @site.latitude %>
-</p>
-
-<p>
-  <b>Longitude:</b>
-  <%= @site.longitude %>
-</p>
-
-<%= link_to 'Rooms', site_rooms_path(@site) %> |
 <%= link_to 'Edit', edit_site_path(@site) %> |
-<%= link_to 'Back', sites_path %>
+<%= link_to 'New Room', new_site_room_path(@site) %>
+
+<%= content_tag( :div, :data => {:role => "collapsible-set", :theme => "c", "content-theme" => "d"}, :class => "ui-collapsible-set") do %>
+  <%= render :partial => "rooms/room", :collection => @site.rooms %>
+<% end %>
+
+<% content_for :footer do %>
+  <%= content_tag :h3, link_to('Back', sites_path(), :data => {:role => "button", :icon => "back"}) %>
+<% end %>

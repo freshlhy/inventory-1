@@ -1,35 +1,81 @@
 <% if @item %>
-<ul data-role="listview" data-inset="true" class="ui-grid-a">
-  <li>
-    <div class="ui-grid-a">
-      <div class="ui-block-a">Model: </div>
-      <div class="ui-block-b"><%= (@item.model ? @item.model.display_name : "Missing!") if @item  %></div>
-    </div>
-  </li>
-  <li>
-    <div class="ui-grid-a">
-      <div class="ui-block-a">Asset Tag: </div>
-      <div class="ui-block-b"><%= @item.tag %></div>
-    </div>
-  </li>
-
-  <li>
-    <div class="ui-grid-a">
-      <div class="ui-block-a">Serial #: </div>
-      <div class="ui-block-b"><%= @item.serial || "Missing!" %></div>
-    </div>
-  </li>
-</ul>
-<%= content_tag :h3, link_to('View Scan History', item_scans_path(@item), :data => {:role => "button", :icon => "grid"}) %>
-<div class="ui-grid-a">
-  <div class="ui-block-a">
-    <%= link_to "Edit", edit_item_path(@item), :data => {:role => "button", :theme => "d"} %>
-  </div>
-  <div class="ui-block-b">
-    <%= link_to 'Delete', @item, confirm: 'Are you sure?', method: :delete, :style => "float:right", :data => {:role => "button", :icon => "delete", :theme => "e", :iconpos => "notext", :inline => true} %>
-  </div>
-</div>
-<% content_for :footer do %>
-  <%= content_tag :h3, link_to('Back', items_path, :data => {:role => "button"}) %>
+<% if @item.model and @item.serial? %>
+    <%= content_tag :h3, [@item.tag, @item.model.display_name].join(" - ") %>
+    <%= content_tag :h3, link_to("Edit", edit_item_path(@item)) %>
+<% else %>
+    <%= content_tag :h3, link_to(@item.tag, edit_item_path(@item), :data => {:theme => "e", :role => "button"}) %>
 <% end %>
+
+<div data-role="collapsible-set" data-theme="c" data-content-theme="d" class="ui-collapsible-set">
+  <div data-role="collapsible">
+    <h3>Details</h3>
+    <ul data-role="listview" data-inset="true" class="ui-grid-a">
+      <li>
+        <div class="ui-grid-a">
+          <div class="ui-block-a">Model: </div>
+          <div class="ui-block-b"><%= (@item.model ? link_to(@item.model.display_name, manufacturer_model_path(@item.model.manufacturer, @item.model)) : "Missing!") if @item  %></div>
+        </div>
+      </li>
+      <li>
+        <div class="ui-grid-a">
+          <div class="ui-block-a">Serial #: </div>
+          <div class="ui-block-b"><%= @item.serial || "Missing!" %></div>
+        </div>
+      </li>
+      <li>
+        <div class="ui-grid-a">
+          <div class="ui-block-a">PO #: </div>
+          <div class="ui-block-b"><%= @item.po %></div>
+        </div>
+      </li>
+      <li>
+        <div class="ui-grid-a">
+          <div class="ui-block-a">Location: </div>
+          <div class="ui-block-b"><%= @item.most_recent_scan ? link_to([@item.most_recent_scan.site.abbreviation, @item.most_recent_scan.room.name].join(" "), site_room_path(@item.most_recent_scan.site, @item.most_recent_scan.room)) : "None" %></div>
+        </div>
+      </li>
+      <% if @item.most_recent_scan %>
+      <%= content_tag :li do -%>
+      <div>
+        <%= image_tag "http://maps.googleapis.com/maps/api/staticmap?size=280x280&markers=#{@item.most_recent_scan.latitude},#{@item.most_recent_scan.longitude}&sensor=false" if @item.most_recent_scan.geo %>
+      </div>
+      <% end -%>
+      <% end %>
+    </ul>
+  </div>
+  
+  <div data-role="collapsible">
+    <%= content_tag(:h3, "Scan History") %>
+    <div data-role="collapsible-set" data-content-theme="d" class="ui-collapsible-set">
+    <% @item.scans.limit(5).each do |scan| %>
+      <%= render scan %>
+    <% end %>
+    <% if @item.scans.count > 5 %>
+      <%= content_tag :div, :data => {:role => "collapsible", :theme => (scan.archived ? "c" : "b")} do%>
+        <%= content_tag :h3, link_to('View Scan History', item_scans_path(@item), :data => {:role => "button", :icon => "grid"}) %>
+      <% end %>
+    <% end %>
+    
+    </div>
+    
+  </div>
+    
+</div>
+
+
+
+
+  <% content_for :footer do %>
+    <div class="ui-grid-b">
+      <div class="ui-block-a">&nbsp;
+      </div>
+      <div class="ui-block-b">
+        <%= content_tag :h3, link_to('Back', items_path, :data => {:role => "button", :icon => "back"}) %>
+      </div>
+      <div class="ui-block-c">
+        <%= content_tag :h3, link_to('Delete', @item, confirm: 'Are you sure?', method: :delete, :data => {:role => "button", :icon => "delete", :theme => "e"}) %>
+      </div>
+    </div>
+  <% end %>
+  
 <% end %>

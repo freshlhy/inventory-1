@@ -46,7 +46,7 @@ class ScansController < ApplicationController
     respond_to do |format|
       if @scan.save
         if @item.serial? && @item.model
-          format.html { redirect_to(item_scans_path(@item), notice: 'Scan was successfully created.') }
+          format.html { redirect_to(item_path(@item), notice: 'Scan was successfully created.') }
           format.json { render json: @scan, status: :created, location: @scan }
         else
           format.html { redirect_to(edit_item_path(@item), notice: 'Scan was successfully created, item details missing!') }
@@ -66,7 +66,7 @@ class ScansController < ApplicationController
 
     respond_to do |format|
       if @scan.update_attributes(params[:scan])
-        format.html { redirect_to item_scans_path(@item), notice: 'Scan was successfully updated.' }
+        format.html { redirect_to item_path(@item), notice: 'Scan was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
@@ -82,7 +82,7 @@ class ScansController < ApplicationController
     @scan.destroy
 
     respond_to do |format|
-      format.html { redirect_to item_scans_url(@item) }
+      format.html { redirect_to item_url(@item) }
       format.json { head :ok }
     end
   end

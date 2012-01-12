@@ -3,7 +3,7 @@
   <% @manufacturers.each do |manufacturer| %>
     <%= content_tag :li, :class => "ui-li-has-count" do %>
       <%= link_to manufacturer.name, manufacturer_path(manufacturer) %>
-      <%= content_tag :span, manufacturer.models.count, :class => "ui-li-count"%>  
+      <%= content_tag :span, manufacturer.items.count, :class => "ui-li-count"%>  
     <% end %>
   <% end %>
 <% end %>

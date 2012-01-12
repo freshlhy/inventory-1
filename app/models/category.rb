@@ -1,6 +1,6 @@
 class Category < ActiveRecord::Base
   has_many :models, :order => 'name'
-  has_many :items
+  has_many :items, :through => :models
   
   validates_presence_of :name
   default_scope :order => "name"

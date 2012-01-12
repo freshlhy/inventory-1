@@ -3,7 +3,7 @@
   <% @categories.each do |category| %>
     <%= content_tag :li, :class => "ui-li-has-count" do %>
       <%= link_to category.name, category %>
-      <%= content_tag :span, category.models.count, :class => "ui-li-count"%>  
+      <%= content_tag :span, category.items.count, :class => "ui-li-count"%>  
     <% end %>
   <% end %>
 <% end %>

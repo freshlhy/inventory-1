@@ -2,6 +2,7 @@ class Room < ActiveRecord::Base
   belongs_to :site
   has_many :scans
   has_many :items, :through => :scans, :uniq => true, :conditions => "archived = false"
+  has_many :models, :through => :items
 
   validates_presence_of :name
   validates_associated :site

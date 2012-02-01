@@ -1,10 +1,14 @@
 class ScansController < ApplicationController
   # GET /scans
   # GET /scans.json
-  before_filter :get_item
+  before_filter :get_item, :except => :index
   
   def index
-    @scans = @item.scans.all
+    if @item
+      @scans = @item.scans.all
+    else
+      @scans = Scan.paginate(:page => params[:page], :per_page => 15).order('created_at DESC')
+    end
 
     respond_to do |format|
       format.html # index.html.erb

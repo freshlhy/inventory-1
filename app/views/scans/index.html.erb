@@ -1,16 +1,10 @@
-<% if @item.model and @item.serial? %>
-    <%= link_to((["#{@item.tag}", @item.model.display_name, @item.serial].join(' - ')), item_path(@item), :data => {:theme => "a", :role => "button"}) %>
-<% else %>
-    <%= link_to((["#{@item.tag}", @item.model ? @item.model.display_name : "Missing!", @item.serial || "Missing!"].join(' - ')), edit_item_path(@item), :data => {:theme => "e", :role => "button"}) %>
-<% end %>
 <h4><%= @scans.count %> Scans</h4>
-<div data-role="collapsible-set" data-content-theme="d" class="ui-collapsible-set">
+<ul  data-role="listview" data-inset="true" class="ui-grid-a">
   <% @scans.each do |scan| %>
-    <%= render scan %>
+    <%= content_tag :li do %>
+      <%= link_to "#{scan.item.tag} - #{scan.site.abbreviation} #{scan.room.name} #{time_ago_in_words(scan.created_at)} ago", item_path(scan.item) %>
+    <% end %>
   <% end %>
-</div>
-<%= link_to 'New Scan', new_item_scan_path(@item) %>
+</ul>
+<%= will_paginate @scans %>
 
-<% content_for :footer do %>
-  <%= content_tag(:h3, link_to('Back', item_path(@item), :data => {:role => "button", :icon => "back"})) %>
-<% end %>

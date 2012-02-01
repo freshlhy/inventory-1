@@ -17,6 +17,8 @@ Inventory::Application.routes.draw do
     resources :rooms
   end
   
+  match "/scans" => "scans#index"
+  
   root :to => 'items#index'
 
 end

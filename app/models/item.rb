@@ -20,4 +20,8 @@ class Item < ActiveRecord::Base
     self.scans.find(:first, :order => "created_at DESC")
   end
   
+  def display_name
+    self.model ? [self.tag, [self.model.manufacturer.name, self.model.name].join(' ')].join(' - ') : self.tag
+  end
+  
 end

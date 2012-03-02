@@ -1,24 +1,28 @@
 <% if @item %>
-  <% if @item.model and @item.serial? %>
-    <%= content_tag :h3, [@item.tag, @item.model.display_name].join(" - ") %>
+<%= content_tag :ul, :data => {:role => 'listview', :inset => true} do %>
+  <% if @item.surplus? %>
+    <%= content_tag :li, :data => {:theme => 'f'} do %>
+      <%= content_tag :h3, @item.display_name %>
+    <% end %>
+  <% elsif !@item.model | !@item.serial? %>
+    <%= content_tag :li, :data => {:theme => 'e'} do %>
+      <%= content_tag :h3, link_to(@item.display_name, edit_item_path(@item), :data => {:role => "button", :theme => 'e', :icon => "alert"}) %>
+    <% end %>
   <% else %>
-    <%= content_tag :h3, link_to(@item.tag, edit_item_path(@item), :data => {:role => "button", :theme => 'e'}) %>
+    <%= content_tag :li, :data => {:theme => 'c'} do %>
+      <%= content_tag :h3, @item.display_name %>
+    <% end %>
   <% end %>
+<% end %>
 
   <%= content_tag :div, :data => {:role => 'collapsible-set', :theme => 'c', :content => {:theme => 'd'}}, :class => 'ui-collapsible-set' do -%>
-    <% if @item.surplus? %>
-    <div data-role="collapsible" data-theme='f'>
-    <% elsif !@item.model | !@item.serial? %>
-      <div data-role="collapsible" data-theme='e'>
-    <% else %>
-      <div data-role="collapsible" data-theme='c'>
-    <% end %>
+    <div data-role="collapsible">
       <h3>Details</h3>
-      <ul data-role="listview" data-inset="true" class="ui-grid-a">
+      <%= content_tag :ul, :data => {:role => "listview", :inset => "true", :theme => @item.surplus? ? 'f' : 'c'}, :class => "ui-grid-a" do -%>
         <% if @item.surplus? %>
-        <%= content_tag :li, :data => {:theme => 'f', :icon => "alert"} do  %>
-          <h1>!! Surplussed !!</h1>
-        <% end %>
+          <li>
+            <h1>!! Surplussed !!</h1>
+          </li>
         <% end %>
         <li>
           <div class="ui-grid-a">
@@ -51,13 +55,13 @@
           </div>
         </li>
         <% if @item.most_recent_scan %>
-        <%= content_tag :li do -%>
-        <div>
-          <%= image_tag "http://maps.googleapis.com/maps/api/staticmap?size=280x280&markers=#{@item.most_recent_scan.latitude},#{@item.most_recent_scan.longitude}&sensor=false" if @item.most_recent_scan.geo %>
-        </div>
-        <% end -%>
+          <%= content_tag :li do -%>
+            <div>
+              <%= image_tag "http://maps.googleapis.com/maps/api/staticmap?size=280x280&markers=#{@item.most_recent_scan.latitude},#{@item.most_recent_scan.longitude}&sensor=false" if @item.most_recent_scan.geo %>
+            </div>
+            <% end -%>
         <% end %>
-      </ul>
+      <% end %>
     </div>
   
     <div data-role="collapsible">
@@ -90,7 +94,7 @@
         <%= content_tag :h3, link_to('Back', items_path, :data => {:role => "button", :icon => "back"}) %>
       </div>
       <div class="ui-block-c">
-        <%= content_tag :p, link_to("Edit", edit_item_path(@item), :data => {:role => "button", :icon => "grid"}) %>
+        <%= content_tag :p, link_to("Edit", edit_item_path(@item), :data => {:role => "button", :icon => "grid", :theme => ('e' if !@item.model | !@item.serial?)}) %>
       </div>
     </div>
   <% end %>

@@ -1,11 +1,18 @@
-  <% if @item.model and @item.serial? %>
-    <%= content_tag :h3, @item.tag %>
-  <% elsif @item.surplus? == false %>
-    <%= content_tag :h3, @item.tag, :data => {:theme => 'f'} %>
+<%= content_tag :ul, :data => {:role => 'listview', :inset => true} do %>
+  <% if @item.surplus? %>
+    <%= content_tag :li, :data => {:theme => 'f'} do %>
+      <%= content_tag :h3, @item.display_name %>
+    <% end %>
+  <% elsif !@item.model | !@item.serial? %>
+    <%= content_tag :li, :data => {:theme => 'e'} do %>
+      <%= content_tag :h3, @item.display_name %>
+    <% end %>
   <% else %>
-    <%= link_to(@item.tag, edit_item_path(@item), :data => {:role => "button", :icon => "alert", :theme => "e"}) %>
+    <%= content_tag :li, do %>
+      <%= content_tag :h3, @item.display_name %>
+    <% end %>
   <% end %>
-
+<% end %>
   <%= form_for(@item) do |f| %>
     <% if @item.errors.any? %>
       <div data-role="collapsible" data-theme="e">

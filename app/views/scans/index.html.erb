@@ -1,8 +1,12 @@
 <h4><%= @scans.count %> Scans</h4>
 <ul  data-role="listview" data-inset="true" class="ui-grid-a">
   <% @scans.each do |scan| %>
-    <%= content_tag :li do %>
-      <%= link_to "#{scan.item.tag} - #{scan.site.abbreviation} #{scan.room.name} #{time_ago_in_words(scan.created_at)} ago", item_path(scan.item) %>
+    <% if scan.item.surplus? %>
+      <%= content_tag :li, (link_to "#{scan.item.tag} - #{scan.site.abbreviation} #{scan.room.name} #{time_ago_in_words(scan.created_at)} ago", item_path(scan.item)), :data => {:theme => "f"} %>
+    <% elsif !scan.item.model | !scan.item.serial? %>
+      <%= content_tag :li, (link_to "#{scan.item.tag} - #{scan.site.abbreviation} #{scan.room.name} #{time_ago_in_words(scan.created_at)} ago", item_path(scan.item)), :data => {:theme => "e"} %>
+    <% else %>
+      <%= content_tag :li, (link_to "#{scan.item.tag} - #{scan.site.abbreviation} #{scan.room.name} #{time_ago_in_words(scan.created_at)} ago", item_path(scan.item)) %>
     <% end %>
   <% end %>
 </ul>

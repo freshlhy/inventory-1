@@ -4,8 +4,14 @@
 
 <%= content_tag :ul, :data => {:role => "listview", :inset => "true"} do %>
   <% @model.items.all.each do |item| %>
-  	<li><%= link_to "#{item.tag} - #{item.serial}", item %></li>
-  <% end %>
+    <% if item.surplus? %>
+      <%= content_tag :li, (link_to (item.tag + ((" - " + item.model.manufacturer.name + " " + item.model.name) if item.model).to_s), item_path(item)), :data => {:theme => "f"} %>
+    <% elsif !item.model | !item.serial? %>
+      <%= content_tag :li, (link_to (item.tag + ((" - " + item.model.manufacturer.name + " " + item.model.name) if item.model).to_s), item_path(item)), :data => {:theme => "e"} %>
+    <% else %>
+      <%= content_tag :li, (link_to (item.tag + ((" - " + item.model.manufacturer.name + " " + item.model.name) if item.model).to_s), item_path(item)) %>
+    <% end %>
+    <% end %>
 <% end %>
 
 <% content_for :footer do %>

@@ -53,7 +53,14 @@
 <%= content_tag :h3, "#{@room.items.count} items" %>
 <ul data-role="listview" data-inset="true" class="ui-grid-a">
 <% @room.items.each do |item| %>
-<%= content_tag :li, (link_to (item.tag + ((" - " + item.model.manufacturer.name + " " + item.model.name) if item.model).to_s), item_path(item)) %>
+
+  <% if item.surplus? %>
+    <%= content_tag :li, (link_to (item.tag + ((" - " + item.model.manufacturer.name + " " + item.model.name) if item.model).to_s), item_path(item)), :data => {:theme => "f"} %>
+  <% elsif !item.model | !item.serial? %>
+    <%= content_tag :li, (link_to (item.tag + ((" - " + item.model.manufacturer.name + " " + item.model.name) if item.model).to_s), item_path(item)), :data => {:theme => "e"} %>
+  <% else %>
+    <%= content_tag :li, (link_to (item.tag + ((" - " + item.model.manufacturer.name + " " + item.model.name) if item.model).to_s), item_path(item)) %>
+  <% end %>
 <% end %>
 </ul>
 <% content_for :footer do %>

@@ -4,9 +4,15 @@
 
 <%= link_to 'Edit', edit_site_path(@site) %> |
 <%= link_to 'New Room', new_site_room_path(@site) %>
+<%= content_tag(:div, :data => {:role => "listview", :inset => "true"}) do %>
 
-<%= content_tag( :div, :data => {:role => "collapsible-set", :theme => "c", "content-theme" => "d"}, :class => "ui-collapsible-set") do %>
-  <%= render :partial => "rooms/room", :collection => @site.rooms %>
+<% @site.rooms.each do |room| %>
+  <%= content_tag :li do %>
+  <%= link_to(room.name.to_s, site_room_path(@site, room))%>
+      <%=  %>
+      <%= content_tag :span, room.items.count, :class => "ui-li-count" if room.items.count > 0 %>  
+  <% end %>
+<% end %>
 <% end %>
 
 <% content_for :footer do %>

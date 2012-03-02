@@ -39,11 +39,9 @@
     </div>
     <div data-role="content">
       <% unless flash.empty? -%>
-        <%= content_tag :ul, :data => {:role => "listview", :inset => true} do %>
           <% flash.each do |key, value| -%>
-            <%= content_tag(:li, (value), :class => key, :data => {:theme => "e"}) %>
+            <%= content_tag :a, value, :data => {:role => "button", :theme => (key == "error" )? "e" : "g", :icon => "delete"}, :class => ["flash", key].join(" ") %>
           <% end %>
-        <% end %>
       <% end %>
       <%= yield %>
     </div>

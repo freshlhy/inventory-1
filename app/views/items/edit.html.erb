@@ -1,5 +1,15 @@
 <%= render 'form' %>
 
 <% content_for :footer do %>
-  <%= content_tag(:h3, link_to('Back', item_path(@item), :data => {:role => "button", :icon => "back"})) %>
+  <div class="ui-grid-b">
+    <div class="ui-block-a">
+      &nbsp;
+    </div>
+    <div class="ui-block-b">
+      <%= content_tag(:h3, link_to('Back', item_path(@item), :data => {:role => "button", :icon => "back"})) %>
+    </div>
+    <div class="ui-block-c">
+      <%= link_to("Surplus", item_path(@item, :item => {:surplus => true}), :method => :put, :confirm => "Are you sure?", :data => {:role => "button", :icon => "delete", :theme => 'f'}) unless @item.surplus?%>
+    </div>
+  </div>
 <% end %>

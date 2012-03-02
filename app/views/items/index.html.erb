@@ -1,7 +1,13 @@
 <%= link_to('New Item', new_item_path) %>
 <div data-role="collapsible-set" data-theme="c" data-content-theme="d" class="ui-collapsible-set">
 <% @items.each do |item| %>
-  <div data-role="collapsible">
+  <% if !item.model | !item.serial? %>
+    <div data-role="collapsible" data-theme="e">
+  <% elsif item.surplus?%>
+    <div data-role="collapsible" data-theme="f">
+  <% else %>
+    <div data-role="collapsible" data-theme="c">
+  <% end %>
     <h3>
       <%= item.tag %>
       <%= content_tag(:span, item.model.display_name, :style =>  "float:right") if item.model %>

@@ -8,3 +8,15 @@
 //= require jquery_ujs
 //= require jquery.mobile-1.0
 //= require_tree .
+
+$("#page").live("pageinit", function(event) {
+	console.log("fadeout");	
+	$(".flash").click(function() {
+		$(this).fadeOut("slow");
+	});
+	
+	setTimeout(function(){
+      $('.flash').fadeOut("slow");
+  },15000);
+	
+});

@@ -3,7 +3,7 @@
   <% @sites.each do |site| %>
     <%= content_tag :li, :class => "ui-li-has-count" do %>  
       <%= link_to site.name, site_path(site) %>
-      <%= content_tag :span, site.items.count, :class => "ui-li-count"%>  
+      <%= content_tag :span, site.items.count, :class => "ui-li-count" if site.items.count > 0 %>  
     <% end %>
   <% end %>
 <% end %>

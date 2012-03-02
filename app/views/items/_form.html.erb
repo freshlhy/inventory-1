@@ -1,8 +1,9 @@
-
   <% if @item.model and @item.serial? %>
-      <%= content_tag :h3, @item.tag %>
+    <%= content_tag :h3, @item.tag %>
+  <% elsif @item.surplus? == false %>
+    <%= content_tag :h3, @item.tag, :data => {:theme => 'f'} %>
   <% else %>
-  <%= link_to(@item.tag, edit_item_path(@item), :data => {:role => "button", :icon => "alert", :theme => "e"}) %>
+    <%= link_to(@item.tag, edit_item_path(@item), :data => {:role => "button", :icon => "alert", :theme => "e"}) %>
   <% end %>
 
   <%= form_for(@item) do |f| %>

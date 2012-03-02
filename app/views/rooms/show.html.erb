@@ -1,9 +1,55 @@
 <h2><%= link_to @site.abbreviation, @site %></h2>
 <%= link_to 'Edit', edit_site_room_path(@site, @room) %>
+<%= content_tag(:div, :data => {:role => "collapsible"}) do %>
+  <%= content_tag :h3, @room.name %>
+  <ul data-role="listview" data-inset="true" class="ui-grid-a">
+    <li>
+      <div class="ui-grid-a">
+        <div class="ui-block-a">Room: </div>
+        <div class="ui-block-b"><%= link_to @room.name, site_room_path(@site, @room) %>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div class="ui-grid-a">
+        <div class="ui-block-a">Desc: </div>
+        <div class="ui-block-b"><%= @room.description %></div>
+      </div>
+    </li>
+    <% unless params[:controller] == "rooms"%>
+    <li>
+      <div class="ui-grid-a">
+        <div class="ui-block-a">Items: </div>
+        <div class="ui-block-b">
+          <% if room.items.count == 0 %>
+            No items
+          <% elsif @room.items.count < 3 %>
+            <% @room.items.each do |item| %>
+            <%= link_to item.tag, item %>
+            <% end %>
+          <% else %>
+            <%= link_to "View all #{room.items.count} items", site_room_path(@site, @room)%>
+          <% end %>
+        </div>
+      </div>
+    </li>
+    <% end %>
+    <% if @room.geo %>
+    <%= content_tag(:li) do -%>
+      <div class="ui-grid-a">
+        <div class="ui-block-a">Geo: </div>
+        <div class="ui-block-b"><%= @room.geo %></div>
+      </div>
+    <% end -%>
+    <%= content_tag :li do -%>
+      <div class="ui-grid-a">
+        <%= image_tag "http://maps.googleapis.com/maps/api/staticmap?size=280x280&markers=#{@room.geo}&sensor=false" %>
+      </div>
+    <% end -%>
+    <% end %>
+  </ul>
+<% end %>
 
-<div data-role="collapsible-set" data-theme="c" data-content-theme="d" class="ui-collapsible-set">
-    <%= render @room %>
-</div>
 <%= content_tag :h3, "#{@room.items.count} items" %>
 <ul data-role="listview" data-inset="true" class="ui-grid-a">
 <% @room.items.each do |item| %>

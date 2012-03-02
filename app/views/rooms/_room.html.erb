@@ -1,6 +1,8 @@
 <%= content_tag(:div, :data => {:role => "collapsible", :collapsed => (params[:controller] != "rooms")}) do %>
   <%= content_tag :h3 do %>
     <%= content_tag :span, room.name, :class => ("sprite location" if room.geo) %>
+    <%= content_tag :span, room.items.count, :class => "ui-li-count"%>  
+    
   <% end %>
   <ul data-role="listview" data-inset="true" class="ui-grid-a">
     <li>

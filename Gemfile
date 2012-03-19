@@ -27,11 +27,10 @@ gem 'will_paginate', '~> 3.0'
 # gem 'unicorn'
 gem 'thin'
 
-# Deploy with Capistrano
-gem 'capistrano'
-
-# To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'
+group :development do
+  # Deploy with Capistrano
+  gem 'capistrano'
+end
 
 group :test do
   # Pretty printed test output

@@ -19,6 +19,6 @@ Inventory::Application.routes.draw do
   
   match "/scans" => "scans#index"
   
-  root :to => 'items#index'
+  root :to => 'scans#index'
 
 end

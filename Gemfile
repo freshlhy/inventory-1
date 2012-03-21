@@ -33,7 +33,7 @@ group :development do
 end
 
 group :production do
-  gem 'therubyracer'
+
 end
 
 group :test do

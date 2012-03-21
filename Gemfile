@@ -32,6 +32,10 @@ group :development do
   gem 'capistrano'
 end
 
+group :production do
+  gem 'therubyracer'
+end
+
 group :test do
   # Pretty printed test output
   gem 'turn', '0.8.2', :require => false

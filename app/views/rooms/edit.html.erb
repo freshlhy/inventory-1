@@ -2,9 +2,18 @@
 
 <%= render 'form' %>
 
-<% link_to 'Delete', [@site, @room], confirm: 'Are you sure?', method: :delete %>
 
 <% content_for :footer do %>
-  <%= content_tag :h3, link_to('Back', site_room_path(@site, @room), :data => {:role => "button", :icon => "back"}) %>
+<div class="ui-grid-b">
+  <div class="ui-block-a">
+    &nbsp;
+  </div>
+  <div class="ui-block-b">
+    <%= content_tag :h3, link_to('Back', site_room_path(@site, @room), :data => {:role => "button", :icon => "back"}) %>
+  </div>
+  <div class="ui-block-c">
+    <%= link_to 'Delete', [@site, @room], confirm: 'Are you sure?', :data => {:role => "button", :icon => "delete", :theme => 'f'}, method: :delete %>
+  </div>
+</div>
 <% end %>
 

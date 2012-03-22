@@ -24,8 +24,8 @@ gem 'will_paginate', '~> 3.0'
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
 # Use unicorn as the web server
-# gem 'unicorn'
-gem 'thin'
+gem 'unicorn'
+#gem 'thin'
 
 group :development do
   # Deploy with Capistrano

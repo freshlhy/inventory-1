@@ -34,19 +34,6 @@
       </div>
     </li>
     <% end %>
-    <% if @room.geo %>
-    <%= content_tag(:li) do -%>
-      <div class="ui-grid-a">
-        <div class="ui-block-a">Geo: </div>
-        <div class="ui-block-b"><%= @room.geo %></div>
-      </div>
-    <% end -%>
-    <%= content_tag :li do -%>
-      <div class="ui-grid-a">
-        <%= image_tag "http://maps.googleapis.com/maps/api/staticmap?size=280x280&markers=#{@room.geo}&sensor=false" %>
-      </div>
-    <% end -%>
-    <% end %>
   </ul>
 <% end %>
 

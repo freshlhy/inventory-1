@@ -22,10 +22,11 @@ class Scan < ActiveRecord::Base
   end
   
   after_create do
-    @room = Room.find(self.room_id)
-    @room.latitude = self.latitude
-    @room.longitude = self.longitude
-    @room.save
+    # Geo not accurate enough on phone to warrant this
+    # @room = Room.find(self.room_id)
+    # @room.latitude = self.latitude
+    # @room.longitude = self.longitude
+    # @room.save
   end
 
 end

@@ -54,13 +54,6 @@
             <div class="ui-block-b"><%= @item.most_recent_scan ? link_to([@item.most_recent_scan.site.abbreviation, @item.most_recent_scan.room.name].join(" "), site_room_path(@item.most_recent_scan.site, @item.most_recent_scan.room)) : "None" %></div>
           </div>
         </li>
-        <% if @item.most_recent_scan %>
-          <%= content_tag :li do -%>
-            <div>
-              <%= image_tag "http://maps.googleapis.com/maps/api/staticmap?size=280x280&markers=#{@item.most_recent_scan.latitude},#{@item.most_recent_scan.longitude}&sensor=false" if @item.most_recent_scan.geo %>
-            </div>
-            <% end -%>
-        <% end %>
       <% end %>
     </div>
   

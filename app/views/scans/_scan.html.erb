@@ -10,7 +10,5 @@
     </li>
     <li><%= scan.note %></li>
     <li><%= time_tag(scan.created_at) %></li>
-    <%= content_tag(:li, "Latitude: #{scan.latitude}") if scan.latitude %>
-    <%= content_tag(:li, "Longitude: #{scan.longitude}") if scan.longitude %>
   </ul>
 <% end %>

@@ -8,7 +8,7 @@
       <%= link_to 'Edit scan details', edit_item_scan_path(@item, scan) %>
       <%= link_to 'Delete', [@item, scan], confirm: 'Are you sure?', method: :delete, :style => "float:right", :data => {:role => "button", :icon => "delete", :theme => "e", :iconpos => "notext", :inline => true} if scan.archived == true%>
     </li>
-    <li><%= scan.note %></li>
-    <li><%= time_tag(scan.created_at) %></li>
+    <%= content_tag :li, scan.note unless scan.note == "" %>
+    <li>Scanned on: <%= time_tag(scan.created_at) %></li>
   </ul>
 <% end %>
